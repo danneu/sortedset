@@ -1,5 +1,5 @@
 
-# sortedset
+# sortedset [![NPM version](https://badge.fury.io/js/sortedset.svg)](http://badge.fury.io/js/sortedset)
 
 A fast, simple sorted set implementation for javascript that allows a custom compare function.
 
@@ -19,7 +19,7 @@ The compare function is the same thing that works with [Array#sort()](https://de
 
 If no compare function is provided, a default ascending comparator is used.
 
-``` javascript
+```javascript
 const SortedSet = require('sortedset')
 
 const set = new SortedSet([2, 1, 3])
