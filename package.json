@@ -14,6 +14,7 @@
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish",
     "prepublish": "npm run build",
+    "postpublish": "git push origin master --follow-tags",
     "deploy": "git pull --rebase origin master && git push origin master"
   },
   "author": "Dan Neumann <danrodneu@gmail.com>",
