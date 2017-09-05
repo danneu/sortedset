@@ -97,3 +97,31 @@ test('values where compare(a, b) === 0 are considered identical', t => {
     t.deepEqual(set.toArray(), [1])
   }
 })
+
+test('test custom compare', t => {
+  // sort leaderboard by highest balances first,
+  // but break ties with username comparison.
+  const compare = (a, b) => {
+    if (a.balance < b.balance) return 1
+    if (a.balance > b.balance) return -1
+    return a.uname.localeCompare(b.uname)
+  }
+
+  const set = new SortedSet([
+    { uname: 'user6', balance: 50 },
+    { uname: 'user3', balance: 75 },
+    { uname: 'user1', balance: 10 },
+    { uname: 'user2', balance: 50 },
+    { uname: 'user1', balance: 10 }
+  ], compare)
+
+  t.deepEqual(
+    set.toArray(),
+    [
+      { uname: 'user3', balance: 75 },
+      { uname: 'user2', balance: 50 },
+      { uname: 'user6', balance: 50 },
+      { uname: 'user1', balance: 10 }
+    ]
+  )
+})

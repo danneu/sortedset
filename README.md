@@ -1,7 +1,7 @@
 
-# sortedset [![NPM version](https://badge.fury.io/js/sortedset.svg)](http://badge.fury.io/js/sortedset)
+# sortedset [![NPM version](https://badge.fury.io/js/sortedset.svg)](http://badge.fury.io/js/sortedset) [![Build Status](https://travis-ci.org/danneu/sortedset.svg?branch=master)](https://travis-ci.org/danneu/sortedset)
 
-A fast, simple sorted set implementation for javascript that allows a custom compare function.
+A fast, simple sorted set implementation for javascript (browser and node) that allows a custom compare function.
 
 Similar API to javascript's [Set](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Set).
 
