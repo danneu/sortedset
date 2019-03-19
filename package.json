@@ -1,28 +1,23 @@
 {
-  "name": "sortedset",
-  "version": "0.0.1",
-  "description": "a simple sorted set implementation that allows a custom compare function",
-  "main": "dist/index.js",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "scripts": {
-    "test": "ava",
-    "build": "mkdir -p dist && ./node_modules/.bin/babel --presets es2015 src/index.js --out-file dist/index.js",
-    "patch": "npm version patch && npm publish",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish",
-    "prepublish": "npm run build",
-    "postpublish": "git push origin master --follow-tags",
-    "deploy": "git pull --rebase origin master && git push origin master"
-  },
-  "author": "Dan Neumann <danrodneu@gmail.com>",
-  "repository": "danneu/sortedset",
-  "license": "MIT",
-  "devDependencies": {
-    "ava": "^0.22.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
-  }
+    "name": "sortedset",
+    "version": "0.0.1",
+    "description": "a simple sorted set implementation that allows a custom compare function",
+    "main": "src/index.js",
+    "files": [
+        "src"
+    ],
+    "scripts": {
+        "test": "ava",
+        "patch": "npm version patch && npm publish",
+        "minor": "npm version minor && npm publish",
+        "major": "npm version major && npm publish",
+        "postpublish": "git push origin master --follow-tags",
+        "deploy": "git pull --rebase origin master && git push origin master"
+    },
+    "author": "Dan Neumann <danrodneu@gmail.com>",
+    "repository": "danneu/sortedset",
+    "license": "MIT",
+    "devDependencies": {
+        "ava": "^1.3.1"
+    }
 }

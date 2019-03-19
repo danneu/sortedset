@@ -1,111 +1,107 @@
 'use strict'
 
+// compare signature: (a, b) => int
+//
+// Valid:
+//     new SortedSet()
+//     new SortedSet([1, 2, 3])
+//     new SortedSet([], customCompare)
+//     new SortedSet([1, 2, 3], customCompare)
+//     new SortedSet(customCompare)
 module.exports = class SortedSet {
-  // compare signature: (a, b) => int
-  //
-  // Valid:
-  //     new SortedSet()
-  //     new SortedSet([1, 2, 3])
-  //     new SortedSet([], customCompare)
-  //     new SortedSet([1, 2, 3], customCompare)
-  //     new SortedSet(customCompare)
-  constructor (array = [], compare = defaultCompare) {
-    if (typeof array === 'function') {
-      compare = array
-      array = []
+    constructor(array = [], compare = defaultCompare) {
+        if (typeof array === 'function') {
+            compare = array
+            array = []
+        }
+
+        this._array = []
+        this.compare = compare
+
+        // Populate from init array
+        const length = array.length
+        let index = 0
+
+        while (index < length) {
+            this.add(array[index++])
+        }
     }
 
-    this.array = []
-    this.compare = compare
-
-    // Populate from init array
-    const length = array.length
-    let index = 0
-
-    while (index < length) {
-      this.add(array[index++])
+    get size() {
+        return this._array.length
     }
-  }
 
-  get size () {
-    return this.array.length
-  }
+    [Symbol.iterator]() {
+        return this._array[Symbol.iterator]()
+    }
 
-  // [Symbol.iterator] () {
-  //   return this.array[Symbol.iterator]()
-  // }
-
-  toArray () {
-    return this.array
-  }
-
-  clear () {
-    this.array = []
-    return this
-  }
-
-  add (element) {
-    let high = this.array.length
-    let low = 0
-
-    while (high > low) {
-      const index = Math.floor((high + low) / 2)
-      const ordering = this.compare(this.array[index], element)
-
-      if (ordering < 0) {
-        low = index + 1
-      } else if (ordering > 0) {
-        high = index
-      } else {
-        // Item already exists
+    clear() {
+        this._array = []
         return this
-      }
     }
 
-    this.array.splice(low, 0, element)
+    add(element) {
+        let high = this._array.length
+        let low = 0
 
-    return this
-  }
+        while (high > low) {
+            const index = Math.floor((high + low) / 2)
+            const ordering = this.compare(this._array[index], element)
 
-  has (element) {
-    return this.indexOf(element) !== -1
-  }
+            if (ordering < 0) {
+                low = index + 1
+            } else if (ordering > 0) {
+                high = index
+            } else {
+                // Item already exists
+                return this
+            }
+        }
 
-  indexOf (element) {
-    let high = this.array.length
-    let low = 0
+        this._array.splice(low, 0, element)
 
-    while (high > low) {
-      const index = Math.floor((high + low) / 2)
-      const ordering = this.compare(this.array[index], element)
-
-      if (ordering < 0) {
-        low = index + 1
-      } else if (ordering > 0) {
-        high = index
-      } else {
-        return index
-      }
+        return this
     }
 
-    return -1
-  }
-
-  // Returns removed element if there was one
-  delete (element) {
-    const index = this.indexOf(element)
-
-    if (index === -1) {
-      return
+    has(element) {
+        return this.indexOf(element) !== -1
     }
 
-    const removed = this.array[index]
-    this.array.splice(index, 1)
-    return removed
-  }
+    indexOf(element) {
+        let high = this._array.length
+        let low = 0
+
+        while (high > low) {
+            const index = Math.floor((high + low) / 2)
+            const ordering = this.compare(this._array[index], element)
+
+            if (ordering < 0) {
+                low = index + 1
+            } else if (ordering > 0) {
+                high = index
+            } else {
+                return index
+            }
+        }
+
+        return -1
+    }
+
+    // Returns removed element if there was one
+    delete(element) {
+        const index = this.indexOf(element)
+
+        if (index === -1) {
+            return
+        }
+
+        const removed = this._array[index]
+        this._array.splice(index, 1)
+        return removed
+    }
 }
 
-function defaultCompare (a, b) {
-  if (a === b) return 0
-  return a < b ? -1 : 1
+function defaultCompare(a, b) {
+    if (a === b) return 0
+    return a < b ? -1 : 1
 }
